@@ -10,9 +10,9 @@
       "name" : "捕鱼达人2",
       "logoUrl" : "http://mgamevision.github.io/mgamevision-data-mocker/res/game/FishingJoy2.png",
       "package" : "org.cocos2dx.FishingJoy2",
-      "readCount" : 3157,
-      "videoCount" : 361,
-      "recentAddedCount" : 41,
+      "readCount" : 105,
+      "videoCount" : 557,
+      "recentAddedCount" : 10,
       "videoList" : [ {
         "id" : 1356,
         "title" : "《仙战》2013独家试玩",
@@ -27,9 +27,9 @@
       "name" : "神庙逃亡2",
       "logoUrl" : "http://mgamevision.github.io/mgamevision-data-mocker/res/game/TempleRun2.png",
       "package" : "com.imangi.templerun2",
-      "readCount" : 184,
-      "videoCount" : 530,
-      "recentAddedCount" : 64,
+      "readCount" : 8453,
+      "videoCount" : 141,
+      "recentAddedCount" : 25,
       "videoList" : [ {
         "id" : 1990,
         "title" : "鼻涕猪布置陷阱",
@@ -40,9 +40,9 @@
       "name" : "天天爱消除",
       "logoUrl" : "http://mgamevision.github.io/mgamevision-data-mocker/res/game/TencentPeng.png",
       "package" : "com.tencent.peng",
-      "readCount" : 7608,
-      "videoCount" : 807,
-      "recentAddedCount" : 90,
+      "readCount" : 8379,
+      "videoCount" : 797,
+      "recentAddedCount" : 4,
       "videoList" : [ {
         "id" : 3012,
         "title" : "龙珠少年篇取胜之道",
@@ -57,9 +57,9 @@
       "name" : "水果忍者",
       "logoUrl" : "http://mgamevision.github.io/mgamevision-data-mocker/res/game/halfbrick.png",
       "package" : "com.halfbrick.fruitninja",
-      "readCount" : 18707,
-      "videoCount" : 910,
-      "recentAddedCount" : 18,
+      "readCount" : 14187,
+      "videoCount" : 222,
+      "recentAddedCount" : 87,
       "videoList" : [ {
         "id" : 1145,
         "title" : "保卫萝卜2极地主题全攻略",
@@ -82,9 +82,9 @@
       "name" : "保卫萝卜2",
       "logoUrl" : "http://mgamevision.github.io/mgamevision-data-mocker/res/game/carrot.png",
       "package" : "com.carrot.iceworld",
-      "readCount" : 3859,
-      "videoCount" : 637,
-      "recentAddedCount" : 67,
+      "readCount" : 17936,
+      "videoCount" : 392,
+      "recentAddedCount" : 11,
       "videoList" : [ {
         "id" : 1735,
         "title" : "大战僵尸2玉米卷地图",
@@ -101,14 +101,6 @@
         "id" : 1889,
         "title" : "保卫萝卜2第100关",
         "coverUrl" : "http://mgamevision.github.io/mgamevision-data-mocker/res/video/1396614886.jpg"
-      }, {
-        "id" : 1890,
-        "title" : "CarX漂移赛车 实战演示",
-        "coverUrl" : "http://mgamevision.github.io/mgamevision-data-mocker/res/video/10905DSKJG.jpg"
-      }, {
-        "id" : 2351,
-        "title" : "保卫萝卜2第93关",
-        "coverUrl" : "http://mgamevision.github.io/mgamevision-data-mocker/res/video/1396607494.jpg"
       } ]
     } ]
   }
