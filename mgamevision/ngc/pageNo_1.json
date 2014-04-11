@@ -1,0 +1,115 @@
+{
+  "status" : 200,
+  "message" : "",
+  "data" : {
+    "curPageNo" : 1,
+    "totalPageCount" : 1,
+    "totalItemCount" : 5,
+    "list" : [ {
+      "id" : 8672,
+      "name" : "捕鱼达人2",
+      "logoUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/game/FishingJoy2.png",
+      "package" : "org.cocos2dx.FishingJoy2",
+      "readCount" : 16898,
+      "videoCount" : 808,
+      "recentAddedCount" : 14,
+      "videoList" : [ {
+        "id" : 1356,
+        "title" : "《仙战》2013独家试玩",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/5c4k1hk99i5mm.jpg"
+      }, {
+        "id" : 1888,
+        "title" : "三国杀神话再临",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/19985763411.jpg"
+      } ]
+    }, {
+      "id" : 8673,
+      "name" : "神庙逃亡2",
+      "logoUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/game/TempleRun2.png",
+      "package" : "com.imangi.templerun2",
+      "readCount" : 1976,
+      "videoCount" : 911,
+      "recentAddedCount" : 42,
+      "videoList" : [ {
+        "id" : 1990,
+        "title" : "鼻涕猪布置陷阱",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/105922454332.jpg"
+      } ]
+    }, {
+      "id" : 8674,
+      "name" : "天天爱消除",
+      "logoUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/game/TencentPeng.png",
+      "package" : "com.tencent.peng",
+      "readCount" : 9400,
+      "videoCount" : 189,
+      "recentAddedCount" : 67,
+      "videoList" : [ {
+        "id" : 3012,
+        "title" : "龙珠少年篇取胜之道",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/13034091423.jpg"
+      }, {
+        "id" : 5671,
+        "title" : "割绳子2的神奇道具",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/1999913342443.jpg"
+      } ]
+    }, {
+      "id" : 8675,
+      "name" : "水果忍者",
+      "logoUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/game/halfbrick.png",
+      "package" : "com.halfbrick.fruitninja",
+      "readCount" : 13149,
+      "videoCount" : 639,
+      "recentAddedCount" : 91,
+      "videoList" : [ {
+        "id" : 1145,
+        "title" : "保卫萝卜2极地主题全攻略",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/1645001503224.jpg"
+      }, {
+        "id" : 1494,
+        "title" : "神庙逃亡2穿越大河",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/123222498893.jpg"
+      }, {
+        "id" : 2241,
+        "title" : "掌三国挑战王者",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/105899991813.jpg"
+      }, {
+        "id" : 3781,
+        "title" : "CarX漂移赛车 幽灵模式",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/104812412.jpg"
+      } ]
+    }, {
+      "id" : 8676,
+      "name" : "保卫萝卜2",
+      "logoUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/game/carrot.png",
+      "package" : "com.carrot.iceworld",
+      "readCount" : 1274,
+      "videoCount" : 635,
+      "recentAddedCount" : 16,
+      "videoList" : [ {
+        "id" : 1735,
+        "title" : "大战僵尸2玉米卷地图",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/100009492.jpg"
+      }, {
+        "id" : 1845,
+        "title" : "保卫萝卜2第97关",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/1396610760.jpg"
+      }, {
+        "id" : 1866,
+        "title" : "保卫萝卜2第94关",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/1396607561.jpg"
+      }, {
+        "id" : 1889,
+        "title" : "保卫萝卜2第100关",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/1396614886.jpg"
+      }, {
+        "id" : 1890,
+        "title" : "CarX漂移赛车 实战演示",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/10905DSKJG.jpg"
+      }, {
+        "id" : 2351,
+        "title" : "保卫萝卜2第93关",
+        "coverUrl" : "http://vince-styling.github.io/self-data-center/mgamevision/res/video/1396607494.jpg"
+      } ]
+    } ]
+  }
+}
