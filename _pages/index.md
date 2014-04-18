@@ -50,9 +50,9 @@ url：http://video.game.yy.com/register/getPhoneCode.do?phone=[PhoneNum]
 
 
 
-# 校验验证码的合法性并进行注册登录
+# 校验验证码的合法性
 
-url：http://video.game.yy.com/register/register.do?phoneValidId=[ValidId]&phoneValidCode=[ValidCode]&phone=[PhoneNum]
+url：http://video.game.yy.com/register/checkPhoneCode.do?phoneValidId=[ValidId]&phoneValidCode=[ValidCode]&phone=[PhoneNum]
 
 ## 参数：
 
@@ -62,7 +62,31 @@ url：http://video.game.yy.com/register/register.do?phoneValidId=[ValidId]&phone
 | `String PhoneNum` 11位的手机号码 |
 
 ## 请求示例：
-### http://video.game.yy.com/register/register.do?phoneValidId=120&phoneValidCode=198382&phone=15920871245
+### http://video.game.yy.com/register/checkPhoneCode.do?phoneValidId=120&phoneValidCode=198382&phone=15920871245
+
+## 返回结果：
+
+    {
+        "status": 200,
+        "message": "",
+        "data": null
+    }
+
+
+
+# 通过手机号码注册时设置密码并登录
+
+url：http://video.game.yy.com/register/register.do?phoneValidId=[ValidId]&phone=[PhoneNum]&psw=[Passwd]
+
+## 参数：
+
+| ----- |:-----:| -----:|
+| `int ValidId` 验证码在服务端的唯一ID |
+| `String PhoneNum` 11位的手机号码 |
+| `String Passwd` 使用MD5加密的密码，由服务端确定算法 |
+
+## 请求示例：
+### http://video.game.yy.com/register/register.do?phoneValidId=120&phone=15920871245&psw=SFLKDFGJAKLSDFKNSSDJFGASFLK
 
 ## 返回结果：
 
@@ -72,17 +96,21 @@ url：http://video.game.yy.com/register/register.do?phoneValidId=[ValidId]&phone
         "data": {
             "id": 10942,
             "nickName": "胡尼克扬1892",
-            "location": "广东 珠海",    // 这个字段需要找产品确认是不是要有默认值
+            "location": "广东 珠海",
             "head_url": "http://video.game.yy.com/head/198591.png", // 为空代表使用默认头像
         }
     }
 
-返回鉴别用户是否登录的Header示例：
+返回鉴别用户是否登录的Header：
 
     memberId：10000035
     UDBSESSIONID：adfcaee9-68d0-46fa-9906-119bff8f394c
 
-这个接口首先去校验验证码的合法性，然后检查手机号是否已经注册，未注册时执行注册，最后在响应Json中返回用户的个人信息，Header中返回登录的cookie。
+在手机号码注册时，前面已经对验证码进行了校验，所以这个接口只提交验证码的唯一标识，服务端通过这个唯一标识去查找对应的手机号，
+看参数中的手机号跟对应的手机是否匹配，匹配则为再次鉴权成功，执行注册。最后在响应Json中返回用户的个人信息，Header中返回登录的cookie。
+
+手机号已注册的情况在这个接口是需要处理的，如果手机号码已经注册，则将这次注册操作视为重置密码的操作，
+所以服务端遇到这种情况时应该使用提交的新密码替换旧密码，然后返回登录信息。
 
 
 
@@ -115,7 +143,7 @@ url：http://video.game.yy.com/register/registerByWeibo.do?uid=[Uid]&accessToken
         }
     }
 
-返回鉴别用户是否登录的Header示例：
+返回鉴别用户是否登录的Header：
 
     memberId：10000035
     UDBSESSIONID：adfcaee9-68d0-46fa-9906-119bff8f394c
@@ -126,13 +154,11 @@ url：http://video.game.yy.com/register/registerByWeibo.do?uid=[Uid]&accessToken
 
 如果返回正确的结果，则判断这个UID是否已经注册，如果没有就执行注册，最后在响应Json中返回用户的个人信息，Header中返回登录的cookie。
 
-注：这个接口提交了用户名、位置、头像三个微博的参数，如果服务端实现了校验微博是否授权的功能，这些参数最好由服务端去获取。
-
 
 
 # 使用手机号进行登录
 
-url：http://video.game.yy.com/login/login.do?phoneNum=[PhoneNum]&passwd=[Passwd]
+url：http://video.game.yy.com/login/login.do?phone=[PhoneNum]&psw=[Passwd]
 
 ## 参数：
 
@@ -141,7 +167,7 @@ url：http://video.game.yy.com/login/login.do?phoneNum=[PhoneNum]&passwd=[Passwd
 | `String Passwd` 使用MD5加密的密码，由服务端确定算法 |
 
 ## 请求示例：
-### http://video.game.yy.com/login/login.do?phoneNum=15929281952&passwd=LKSFDADFLAGJSLDFAD
+### http://video.game.yy.com/login/login.do?phoneNum=15929281952&psw=LKSFDADFLAGJSLDFAD
 
 ## 返回结果：
 
@@ -156,7 +182,7 @@ url：http://video.game.yy.com/login/login.do?phoneNum=[PhoneNum]&passwd=[Passwd
         }
     }
 
-返回鉴别用户是否登录的Header示例：
+返回鉴别用户是否登录的Header：
 
     memberId：10000035
     UDBSESSIONID：adfcaee9-68d0-46fa-9906-119bff8f394c
