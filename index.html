@@ -58,8 +58,8 @@
     <span class="braces">}</span>
 <span class="braces">}</span></pre> 
   <p>无论这个手机号是否已经注册，都要下行验证码短信，在校验验证码合法性并注册或登录时会处理手机号存在的情况。</p> 
-  <h1>校验验证码的合法性并进行注册登录</h1> 
-  <p>url：http://video.game.yy.com/register/register.do?phoneValidId=[ValidId]&amp;phoneValidCode=[ValidCode]&amp;phone=[PhoneNum]</p> 
+  <h1>校验验证码的合法性</h1> 
+  <p>url：http://video.game.yy.com/register/checkPhoneCode.do?phoneValidId=[ValidId]&amp;phoneValidCode=[ValidCode]&amp;phone=[PhoneNum]</p> 
   <h2>参数：</h2> 
   <table> 
    <colgroup>
@@ -82,7 +82,38 @@
    </tbody> 
   </table> 
   <h2>请求示例：</h2> 
-  <h3 id="http:video.game.yy.comregisterregister.dophonevalidid120phonevalidcode198382phone15920871245">http://video.game.yy.com/register/register.do?phoneValidId=120&amp;phoneValidCode=198382&amp;phone=15920871245</h3> 
+  <h3 id="http:video.game.yy.comregistercheckphonecode.dophonevalidid120phonevalidcode198382phone15920871245">http://video.game.yy.com/register/checkPhoneCode.do?phoneValidId=120&amp;phoneValidCode=198382&amp;phone=15920871245</h3> 
+  <h2>返回结果：</h2> 
+  <pre><span class="braces">{</span>
+    <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
+    <span class="string">&quot;message&quot;</span><span class="symbol">:</span> <span class="string">&quot;&quot;</span>,
+    <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="reserved_word">null</span>
+<span class="braces">}</span></pre> 
+  <h1>通过手机号码注册时设置密码并登录</h1> 
+  <p>url：http://video.game.yy.com/register/register.do?phoneValidId=[ValidId]&amp;phone=[PhoneNum]&amp;psw=[Passwd]</p> 
+  <h2>参数：</h2> 
+  <table> 
+   <colgroup>
+    <col /> 
+    <col align="center" /> 
+    <col align="right" /> 
+   </colgroup>
+   <thead> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td><code>int ValidId</code> 验证码在服务端的唯一ID</td> 
+    </tr> 
+    <tr> 
+     <td><code>String PhoneNum</code> 11位的手机号码</td> 
+    </tr> 
+    <tr> 
+     <td><code>String Passwd</code> 使用MD5加密的密码，由服务端确定算法</td> 
+    </tr> 
+   </tbody> 
+  </table> 
+  <h2>请求示例：</h2> 
+  <h3 id="http:video.game.yy.comregisterregister.dophonevalidid120phone15920871245pswsflkdfgjaklsdfknssdjfgasflk">http://video.game.yy.com/register/register.do?phoneValidId=120&amp;phone=15920871245&amp;psw=SFLKDFGJAKLSDFKNSSDJFGASFLK</h3> 
   <h2>返回结果：</h2> 
   <pre><span class="braces">{</span>
     <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
@@ -90,14 +121,15 @@
     <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="braces">{</span>
         <span class="string">&quot;id&quot;</span><span class="symbol">:</span> <span class="numeric">10942</span>,
         <span class="string">&quot;nickName&quot;</span><span class="symbol">:</span> <span class="string">&quot;胡尼克扬1892&quot;</span>,
-        <span class="string">&quot;location&quot;</span><span class="symbol">:</span> <span class="string">&quot;广东 珠海&quot;</span>,    <span class="comment">// 这个字段需要找产品确认是不是要有默认值</span>
+        <span class="string">&quot;location&quot;</span><span class="symbol">:</span> <span class="string">&quot;广东 珠海&quot;</span>,
         <span class="string">&quot;head_url&quot;</span><span class="symbol">:</span> <span class="string">&quot;http://video.game.yy.com/head/198591.png&quot;</span>, <span class="comment">// 为空代表使用默认头像</span>
     <span class="braces">}</span>
 <span class="braces">}</span></pre> 
-  <p>返回鉴别用户是否登录的Header示例：</p> 
+  <p>返回鉴别用户是否登录的Header：</p> 
   <pre><span class="identifier">memberId</span>：<span class="numeric">10000035</span>
 <span class="identifier">UDBSESSIONID</span>：<span class="identifier">adfcaee9</span><span class="symbol">-</span>68d0<span class="symbol">-</span>46fa<span class="symbol">-</span><span class="numeric">9906</span><span class="symbol">-</span>119bff8f394c</pre> 
-  <p>这个接口首先去校验验证码的合法性，然后检查手机号是否已经注册，未注册时执行注册，最后在响应Json中返回用户的个人信息，Header中返回登录的cookie。</p> 
+  <p>在手机号码注册时，前面已经对验证码进行了校验，所以这个接口只提交验证码的唯一标识，服务端通过这个唯一标识去查找对应的手机号， 看参数中的手机号跟对应的手机是否匹配，匹配则为再次鉴权成功，执行注册。最后在响应Json中返回用户的个人信息，Header中返回登录的cookie。</p> 
+  <p>手机号已注册的情况在这个接口是需要处理的，如果手机号码已经注册，则将这次注册操作视为重置密码的操作， 所以服务端遇到这种情况时应该使用提交的新密码替换旧密码，然后返回登录信息。</p> 
   <h1>使用新浪微博进行注册登录</h1> 
   <p>url：http://video.game.yy.com/register/registerByWeibo.do?uid=[Uid]&amp;accessToken=[AccessToken]&amp;name=[Name]&amp;location=[Location]&amp;headUrl=[HeadUrl]</p> 
   <h2>参数：</h2> 
@@ -140,15 +172,14 @@
         <span class="string">&quot;head_url&quot;</span><span class="symbol">:</span> <span class="string">&quot;http://video.game.yy.com/head/198591.png&quot;</span>, <span class="comment">// 为空代表使用默认头像</span>
     <span class="braces">}</span>
 <span class="braces">}</span></pre> 
-  <p>返回鉴别用户是否登录的Header示例：</p> 
+  <p>返回鉴别用户是否登录的Header：</p> 
   <pre><span class="identifier">memberId</span>：<span class="numeric">10000035</span>
 <span class="identifier">UDBSESSIONID</span>：<span class="identifier">adfcaee9</span><span class="symbol">-</span>68d0<span class="symbol">-</span>46fa<span class="symbol">-</span><span class="numeric">9906</span><span class="symbol">-</span>119bff8f394c</pre> 
   <p>服务端首先使用提交的微博UID跟AccessToken去请求微博开放平台验证这个用户是否已经授权，访问地址为：</p> 
   <pre><span class="identifier">https</span><span class="symbol">:</span><span class="comment">//api.weibo.com/2/users/show.json?uid=[Uid]&amp;accessToken=[AccessToken]</span></pre> 
   <p>如果返回正确的结果，则判断这个UID是否已经注册，如果没有就执行注册，最后在响应Json中返回用户的个人信息，Header中返回登录的cookie。</p> 
-  <p>注：这个接口提交了用户名、位置、头像三个微博的参数，如果服务端实现了校验微博是否授权的功能，这些参数最好由服务端去获取。</p> 
   <h1>使用手机号进行登录</h1> 
-  <p>url：http://video.game.yy.com/login/login.do?phoneNum=[PhoneNum]&amp;passwd=[Passwd]</p> 
+  <p>url：http://video.game.yy.com/login/login.do?phone=[PhoneNum]&amp;psw=[Passwd]</p> 
   <h2>参数：</h2> 
   <table> 
    <colgroup>
@@ -168,7 +199,7 @@
    </tbody> 
   </table> 
   <h2>请求示例：</h2> 
-  <h3 id="http:video.game.yy.comloginlogin.dophonenum15929281952passwdlksfdadflagjsldfad">http://video.game.yy.com/login/login.do?phoneNum=15929281952&amp;passwd=LKSFDADFLAGJSLDFAD</h3> 
+  <h3 id="http:video.game.yy.comloginlogin.dophonenum15929281952pswlksfdadflagjsldfad">http://video.game.yy.com/login/login.do?phoneNum=15929281952&amp;psw=LKSFDADFLAGJSLDFAD</h3> 
   <h2>返回结果：</h2> 
   <pre><span class="braces">{</span>
     <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
@@ -180,7 +211,7 @@
         <span class="string">&quot;head_url&quot;</span><span class="symbol">:</span> <span class="string">&quot;http://video.game.yy.com/head/198591.png&quot;</span>, <span class="comment">// 为空代表使用默认头像</span>
     <span class="braces">}</span>
 <span class="braces">}</span></pre> 
-  <p>返回鉴别用户是否登录的Header示例：</p> 
+  <p>返回鉴别用户是否登录的Header：</p> 
   <pre><span class="identifier">memberId</span>：<span class="numeric">10000035</span>
 <span class="identifier">UDBSESSIONID</span>：<span class="identifier">adfcaee9</span><span class="symbol">-</span>68d0<span class="symbol">-</span>46fa<span class="symbol">-</span><span class="numeric">9906</span><span class="symbol">-</span>119bff8f394c</pre> 
   <h1>获取用户信息</h1> 
