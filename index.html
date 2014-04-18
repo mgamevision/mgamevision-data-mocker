@@ -3,11 +3,259 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="robots" content="noindex, nofollow, none, noarchive">
-    <title>Data Center</title>
+    <link rel="stylesheet" href="/css/site.css" type="text/css" media="screen">
+    <title>Data Center Doc</title>
 </head>
 <body>
-    <div>
-        <h1>Data Center</h1>
+    <div class="container">
+        <div class="clearfix">
+            <div class="page-title">
+    <h1>Data Center Doc</h1>
+    <h2>手游视界的服务端接口文档</h2>
+</div>
+<div class="primary">
+    <div class="post-thumb">
+        <html>
+ <head></head>
+ <body>
+  <h1>全局字段声明</h1> 
+  <p>由于众所周知的原因，暂时不支持通过IP地址请求，需要配置Host才能访问：</p> 
+  <pre><span class="numeric">172.17</span><span class="numeric">.6</span><span class="numeric">.127</span>  <span class="identifier">video</span>.<span class="identifier">game</span>.<span class="identifier">yy</span>.<span class="identifier">com</span></pre> 
+  <p>测试机IP：172.17.6.127(内网)、113.106.251.82(外网)</p> 
+  <p>返回结果格式统一为：</p> 
+  <pre><span class="braces">{</span>
+    <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,  <span class="comment">// 业务处理的状态，200为处理成功的统一标识，其它数值按照不同接口有不同定义</span>
+    <span class="string">&quot;message&quot;</span><span class="symbol">:</span> <span class="string">&quot;&quot;</span>,  <span class="comment">// 业务处理结果消息，只有在处理失败时才需要填充错误信息，处理成功留空白</span>
+    <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="braces">{</span>       <span class="comment">// 业务返回数据</span>
+        ...
+    <span class="braces">}</span>
+<span class="braces">}</span></pre> 
+  <h1>通过手机号获取验证码</h1> 
+  <p>url：http://video.game.yy.com/register/getPhoneCode.do?phone=[PhoneNum]</p> 
+  <h2>参数：</h2> 
+  <table> 
+   <colgroup>
+    <col /> 
+    <col align="center" /> 
+    <col align="right" /> 
+   </colgroup>
+   <thead> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td><code>String PhoneNum</code> 11位的手机号码</td> 
+    </tr> 
+   </tbody> 
+  </table> 
+  <h2>请求示例：</h2> 
+  <h3 id="http:video.game.yy.comregistergetphonecode.dophone15920871245">http://video.game.yy.com/register/getPhoneCode.do?phone=15920871245</h3> 
+  <h2>返回结果：</h2> 
+  <pre><span class="braces">{</span>
+    <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
+    <span class="string">&quot;message&quot;</span><span class="symbol">:</span> <span class="string">&quot;&quot;</span>,
+    <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="braces">{</span>
+        <span class="string">&quot;phoneValidId&quot;</span><span class="symbol">:</span> <span class="numeric">120</span>
+    <span class="braces">}</span>
+<span class="braces">}</span></pre> 
+  <p>无论这个手机号是否已经注册，都要下行验证码短信，在校验验证码合法性并注册或登录时会处理手机号存在的情况。</p> 
+  <h1>校验验证码的合法性并进行注册登录</h1> 
+  <p>url：http://video.game.yy.com/register/register.do?phoneValidId=[ValidId]&amp;phoneValidCode=[ValidCode]&amp;phone=[PhoneNum]</p> 
+  <h2>参数：</h2> 
+  <table> 
+   <colgroup>
+    <col /> 
+    <col align="center" /> 
+    <col align="right" /> 
+   </colgroup>
+   <thead> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td><code>int ValidId</code> 验证码在服务端的唯一ID</td> 
+    </tr> 
+    <tr> 
+     <td><code>String ValidCode</code> 六位随机数的验证码</td> 
+    </tr> 
+    <tr> 
+     <td><code>String PhoneNum</code> 11位的手机号码</td> 
+    </tr> 
+   </tbody> 
+  </table> 
+  <h2>请求示例：</h2> 
+  <h3 id="http:video.game.yy.comregisterregister.dophonevalidid120phonevalidcode198382phone15920871245">http://video.game.yy.com/register/register.do?phoneValidId=120&amp;phoneValidCode=198382&amp;phone=15920871245</h3> 
+  <h2>返回结果：</h2> 
+  <pre><span class="braces">{</span>
+    <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
+    <span class="string">&quot;message&quot;</span><span class="symbol">:</span> <span class="string">&quot;&quot;</span>,
+    <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="braces">{</span>
+        <span class="string">&quot;id&quot;</span><span class="symbol">:</span> <span class="numeric">10942</span>,
+        <span class="string">&quot;nickName&quot;</span><span class="symbol">:</span> <span class="string">&quot;胡尼克扬1892&quot;</span>,
+        <span class="string">&quot;location&quot;</span><span class="symbol">:</span> <span class="string">&quot;广东 珠海&quot;</span>,    <span class="comment">// 这个字段需要找产品确认是不是要有默认值</span>
+        <span class="string">&quot;head_url&quot;</span><span class="symbol">:</span> <span class="string">&quot;http://video.game.yy.com/head/198591.png&quot;</span>, <span class="comment">// 为空代表使用默认头像</span>
+    <span class="braces">}</span>
+<span class="braces">}</span></pre> 
+  <p>返回鉴别用户是否登录的Header示例：</p> 
+  <pre><span class="identifier">memberId</span>：<span class="numeric">10000035</span>
+<span class="identifier">UDBSESSIONID</span>：<span class="identifier">adfcaee9</span><span class="symbol">-</span>68d0<span class="symbol">-</span>46fa<span class="symbol">-</span><span class="numeric">9906</span><span class="symbol">-</span>119bff8f394c</pre> 
+  <p>这个接口首先去校验验证码的合法性，然后检查手机号是否已经注册，未注册时执行注册，最后在响应Json中返回用户的个人信息，Header中返回登录的cookie。</p> 
+  <h1>使用新浪微博进行注册登录</h1> 
+  <p>url：http://video.game.yy.com/register/registerByWeibo.do?uid=[Uid]&amp;accessToken=[AccessToken]&amp;name=[Name]&amp;location=[Location]&amp;headUrl=[HeadUrl]</p> 
+  <h2>参数：</h2> 
+  <table> 
+   <colgroup>
+    <col /> 
+    <col align="center" /> 
+    <col align="right" /> 
+   </colgroup>
+   <thead> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td><code>String Uid</code> 新浪微博的账号唯一标识</td> 
+    </tr> 
+    <tr> 
+     <td><code>String AccessToken</code> 访问微博账号所使用的鉴权标识</td> 
+    </tr> 
+    <tr> 
+     <td><code>String Name</code> 用户昵称</td> 
+    </tr> 
+    <tr> 
+     <td><code>String Location</code> 用户的所在位置</td> 
+    </tr> 
+    <tr> 
+     <td><code>String HeadUrl</code> 用户的头像地址</td> 
+    </tr> 
+   </tbody> 
+  </table> 
+  <h2>请求示例：</h2> 
+  <h3 id="http:video.game.yy.comregisterregisterbyweibo.douid1768721164access_token2.00ys3hvbosnwub4fd0fea8bfle2cacnamewowowolocationheadurlhttp:tp1.sinaimg.cn176872116450400437992981">http://video.game.yy.com/register/registerByWeibo.do?uid=1768721164&amp;access_token=2.00ys3hvBosNWuB4fd0fea8bflE2caC&amp;name=WoWoWo&amp;location=广东广州&amp;headUrl=http://tp1.sinaimg.cn/1768721164/50/40043799298/1</h3> 
+  <h2>返回结果：</h2> 
+  <pre><span class="braces">{</span>
+    <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
+    <span class="string">&quot;message&quot;</span><span class="symbol">:</span> <span class="string">&quot;&quot;</span>,
+    <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="braces">{</span>
+        <span class="string">&quot;id&quot;</span><span class="symbol">:</span> <span class="numeric">10942</span>,
+        <span class="string">&quot;nickName&quot;</span><span class="symbol">:</span> <span class="string">&quot;胡尼克扬1892&quot;</span>,
+        <span class="string">&quot;location&quot;</span><span class="symbol">:</span> <span class="string">&quot;广东 珠海&quot;</span>,
+        <span class="string">&quot;head_url&quot;</span><span class="symbol">:</span> <span class="string">&quot;http://video.game.yy.com/head/198591.png&quot;</span>, <span class="comment">// 为空代表使用默认头像</span>
+    <span class="braces">}</span>
+<span class="braces">}</span></pre> 
+  <p>返回鉴别用户是否登录的Header示例：</p> 
+  <pre><span class="identifier">memberId</span>：<span class="numeric">10000035</span>
+<span class="identifier">UDBSESSIONID</span>：<span class="identifier">adfcaee9</span><span class="symbol">-</span>68d0<span class="symbol">-</span>46fa<span class="symbol">-</span><span class="numeric">9906</span><span class="symbol">-</span>119bff8f394c</pre> 
+  <p>服务端首先使用提交的微博UID跟AccessToken去请求微博开放平台验证这个用户是否已经授权，访问地址为：</p> 
+  <pre><span class="identifier">https</span><span class="symbol">:</span><span class="comment">//api.weibo.com/2/users/show.json?uid=[Uid]&amp;accessToken=[AccessToken]</span></pre> 
+  <p>如果返回正确的结果，则判断这个UID是否已经注册，如果没有就执行注册，最后在响应Json中返回用户的个人信息，Header中返回登录的cookie。</p> 
+  <p>注：这个接口提交了用户名、位置、头像三个微博的参数，如果服务端实现了校验微博是否授权的功能，这些参数最好由服务端去获取。</p> 
+  <h1>使用手机号进行登录</h1> 
+  <p>url：http://video.game.yy.com/login/login.do?phoneNum=[PhoneNum]&amp;passwd=[Passwd]</p> 
+  <h2>参数：</h2> 
+  <table> 
+   <colgroup>
+    <col /> 
+    <col align="center" /> 
+    <col align="right" /> 
+   </colgroup>
+   <thead> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td><code>String PhoneNum</code> 11位的手机号码</td> 
+    </tr> 
+    <tr> 
+     <td><code>String Passwd</code> 使用MD5加密的密码，由服务端确定算法</td> 
+    </tr> 
+   </tbody> 
+  </table> 
+  <h2>请求示例：</h2> 
+  <h3 id="http:video.game.yy.comloginlogin.dophonenum15929281952passwdlksfdadflagjsldfad">http://video.game.yy.com/login/login.do?phoneNum=15929281952&amp;passwd=LKSFDADFLAGJSLDFAD</h3> 
+  <h2>返回结果：</h2> 
+  <pre><span class="braces">{</span>
+    <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
+    <span class="string">&quot;message&quot;</span><span class="symbol">:</span> <span class="string">&quot;&quot;</span>,
+    <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="braces">{</span>
+        <span class="string">&quot;id&quot;</span><span class="symbol">:</span> <span class="numeric">10942</span>,
+        <span class="string">&quot;nickName&quot;</span><span class="symbol">:</span> <span class="string">&quot;胡尼克扬1892&quot;</span>,
+        <span class="string">&quot;location&quot;</span><span class="symbol">:</span> <span class="string">&quot;广东 珠海&quot;</span>,
+        <span class="string">&quot;head_url&quot;</span><span class="symbol">:</span> <span class="string">&quot;http://video.game.yy.com/head/198591.png&quot;</span>, <span class="comment">// 为空代表使用默认头像</span>
+    <span class="braces">}</span>
+<span class="braces">}</span></pre> 
+  <p>返回鉴别用户是否登录的Header示例：</p> 
+  <pre><span class="identifier">memberId</span>：<span class="numeric">10000035</span>
+<span class="identifier">UDBSESSIONID</span>：<span class="identifier">adfcaee9</span><span class="symbol">-</span>68d0<span class="symbol">-</span>46fa<span class="symbol">-</span><span class="numeric">9906</span><span class="symbol">-</span>119bff8f394c</pre> 
+  <h1>获取用户信息</h1> 
+  <p>url：http://video.game.yy.com/user/getUserInfo.do?memberId=[MemberId]</p> 
+  <h2>参数：</h2> 
+  <table> 
+   <colgroup>
+    <col /> 
+    <col align="center" /> 
+    <col align="right" /> 
+   </colgroup>
+   <thead> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td><code>Param int MemberId</code> 用户唯一标识</td> 
+    </tr> 
+    <tr> 
+     <td><code>Header int memberId</code> Header鉴权的用户唯一标识</td> 
+    </tr> 
+    <tr> 
+     <td><code>Header String UDBSESSIONID</code> Header鉴权的用户会话信息</td> 
+    </tr> 
+   </tbody> 
+  </table> 
+  <h2>请求示例：</h2> 
+  <h3 id="http:video.game.yy.comusergetuserinfo.domemberid12984">http://video.game.yy.com/user/getUserInfo.do?memberId=12984</h3> 
+  <p>Header：</p> 
+  <p>memberId：10000035</p> 
+  <p>UDBSESSIONID：adfcaee9-68d0-46fa-9906-119bff8f394c</p> 
+  <h2>返回结果：</h2> 
+  <pre><span class="braces">{</span>
+    <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
+    <span class="string">&quot;message&quot;</span><span class="symbol">:</span> <span class="string">&quot;&quot;</span>,
+    <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="braces">{</span>
+        <span class="string">&quot;id&quot;</span><span class="symbol">:</span> <span class="numeric">10942</span>,
+        <span class="string">&quot;nickName&quot;</span><span class="symbol">:</span> <span class="string">&quot;胡尼克扬1892&quot;</span>,
+        <span class="string">&quot;location&quot;</span><span class="symbol">:</span> <span class="string">&quot;广东 珠海&quot;</span>,
+        <span class="string">&quot;head_url&quot;</span><span class="symbol">:</span> <span class="string">&quot;http://video.game.yy.com/head/198591.png&quot;</span>, <span class="comment">// 为空代表使用默认头像</span>
+    <span class="braces">}</span>
+<span class="braces">}</span></pre> 
+  <p>这个接口首先鉴别客户端提交的两个Header是否合法，再返回memberId对应用户的信息。</p> 
+  <h1>退出登录</h1> 
+  <p>url：http://video.game.yy.com/user/loginOut.do?memberId=[MemberId]</p> 
+  <h2>参数：</h2> 
+  <table> 
+   <colgroup>
+    <col /> 
+    <col align="center" /> 
+    <col align="right" /> 
+   </colgroup>
+   <thead> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td><code>int MemberId</code> 用户唯一标识</td> 
+    </tr> 
+   </tbody> 
+  </table> 
+  <h2>请求示例：</h2> 
+  <h3 id="http:video.game.yy.comuserloginout.domemberid1894">http://video.game.yy.com/user/loginOut.do?memberId=1894</h3> 
+  <h2>返回结果：</h2> 
+  <pre><span class="braces">{</span>
+    <span class="string">&quot;status&quot;</span><span class="symbol">:</span> <span class="numeric">200</span>,
+    <span class="string">&quot;message&quot;</span><span class="symbol">:</span> <span class="string">&quot;&quot;</span>,
+    <span class="string">&quot;data&quot;</span><span class="symbol">:</span> <span class="reserved_word">null</span>
+<span class="braces">}</span></pre> 
+ </body>
+</html>
+    </div>
+</div>
+        </div>
+    </div>
+    <div class="footer">
+        All pages are generated by <a href="https://github.com/neevek/minerl">Minerl</a>
     </div>
 </body>
 </html>
